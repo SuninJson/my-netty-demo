@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>io.netty.channel.nio.NioEventLoopGroup</OriginalElement>
+  <nodes>
+    <node x="168.25000000000003" y="400.0">io.netty.util.concurrent.MultithreadEventExecutorGroup</node>
+    <node x="414.75" y="320.0">io.netty.channel.EventLoopGroup</node>
+    <node x="421.5" y="0.0">java.util.concurrent.Executor</node>
+    <node x="279.25" y="480.0">io.netty.channel.MultithreadEventLoopGroup</node>
+    <node x="188.00000000000003" y="560.0">io.netty.channel.DefaultEventLoopGroup</node>
+    <node x="303.25" y="240.0">io.netty.util.concurrent.EventExecutorGroup</node>
+    <node x="0.0" y="560.0">io.netty.channel.nio.NioEventLoopGroup</node>
+    <node x="257.5" y="160.0">java.lang.Iterable</node>
+    <node x="609.0" y="560.0">io.netty.channel.epoll.EpollEventLoopGroup</node>
+    <node x="369.5" y="160.0">java.util.concurrent.ScheduledExecutorService</node>
+    <node x="177.75000000000003" y="320.0">io.netty.util.concurrent.AbstractEventExecutorGroup</node>
+    <node x="396.0" y="560.0">io.netty.channel.kqueue.KQueueEventLoopGroup</node>
+    <node x="400.5" y="80.0">java.util.concurrent.ExecutorService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="io.netty.util.concurrent.MultithreadEventExecutorGroup" target="io.netty.util.concurrent.AbstractEventExecutorGroup">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.channel.MultithreadEventLoopGroup" target="io.netty.util.concurrent.MultithreadEventExecutorGroup">
+      <point x="-54.0" y="-15.0" />
+      <point x="333.25" y="455.0" />
+      <point x="286.25" y="455.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.util.concurrent.EventExecutorGroup" target="java.util.concurrent.ScheduledExecutorService">
+      <point x="42.0" y="-15.0" />
+      <point x="429.25" y="215.0" />
+      <point x="471.0" y="215.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.util.concurrent.AbstractEventExecutorGroup" target="io.netty.util.concurrent.EventExecutorGroup">
+      <point x="0.0" y="-15.0" />
+      <point x="286.25" y="295.0" />
+      <point x="345.25" y="295.0" />
+      <point x="-42.0" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.ExecutorService" target="java.util.concurrent.Executor">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="java.util.concurrent.ScheduledExecutorService" target="java.util.concurrent.ExecutorService">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.channel.EventLoopGroup" target="io.netty.util.concurrent.EventExecutorGroup">
+      <point x="0.0" y="-15.0" />
+      <point x="488.25" y="295.0" />
+      <point x="429.25" y="295.0" />
+      <point x="42.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.channel.DefaultEventLoopGroup" target="io.netty.channel.MultithreadEventLoopGroup">
+      <point x="0.0" y="-15.0" />
+      <point x="282.0" y="540.0" />
+      <point x="360.25" y="540.0" />
+      <point x="-27.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.util.concurrent.EventExecutorGroup" target="java.lang.Iterable">
+      <point x="-42.0" y="-15.0" />
+      <point x="345.25" y="215.0" />
+      <point x="303.5" y="215.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.channel.epoll.EpollEventLoopGroup" target="io.netty.channel.MultithreadEventLoopGroup">
+      <point x="0.0" y="-15.0" />
+      <point x="697.0" y="530.0" />
+      <point x="468.25" y="530.0" />
+      <point x="81.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.channel.MultithreadEventLoopGroup" target="io.netty.channel.EventLoopGroup">
+      <point x="54.0" y="-15.0" />
+      <point x="441.25" y="455.0" />
+      <point x="488.25" y="455.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.channel.kqueue.KQueueEventLoopGroup" target="io.netty.channel.MultithreadEventLoopGroup">
+      <point x="0.0" y="-15.0" />
+      <point x="492.5" y="540.0" />
+      <point x="414.25" y="540.0" />
+      <point x="27.0" y="15.0" />
+    </edge>
+    <edge source="io.netty.channel.nio.NioEventLoopGroup" target="io.netty.channel.MultithreadEventLoopGroup">
+      <point x="0.0" y="-15.0" />
+      <point x="84.0" y="530.0" />
+      <point x="306.25" y="530.0" />
+      <point x="-81.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="392.5" y="295.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

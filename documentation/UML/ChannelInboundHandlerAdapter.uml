@@ -3,59 +3,56 @@
   <ID>JAVA</ID>
   <OriginalElement>io.netty.channel.ChannelInboundHandlerAdapter</OriginalElement>
   <nodes>
-    <node x="0.0" y="170.0">io.netty.channel.ChannelOutboundHandlerAdapter</node>
-    <node x="133.71527777777777" y="80.0">io.netty.channel.ChannelHandlerAdapter</node>
-    <node x="268.0" y="170.0">io.netty.channel.ChannelInboundHandlerAdapter</node>
-    <node x="367.34027777777777" y="80.0">io.netty.channel.ChannelInboundHandler</node>
-    <node x="157.71527777777777" y="0.0">io.netty.channel.ChannelHandler</node>
+    <node x="627.0" y="447.5">io.netty.channel.ChannelOutboundHandlerAdapter</node>
+    <node x="432.0" y="195.0">io.netty.channel.ChannelHandlerAdapter</node>
+    <node x="162.84722222222223" y="436.0">io.netty.channel.ChannelInboundHandlerAdapter</node>
+    <node x="0.0" y="149.0">io.netty.channel.ChannelInboundHandler</node>
+    <node x="432.0" y="0.0">io.netty.channel.ChannelHandler</node>
   </nodes>
   <notes />
   <edges>
     <edge source="io.netty.channel.ChannelOutboundHandlerAdapter" target="io.netty.channel.ChannelHandlerAdapter">
-      <point x="62.0" y="-15.0" />
-      <point x="186.0" y="150.0" />
-      <point x="227.71527777777777" y="150.0" />
-      <point x="0.0" y="15.0" />
+      <point x="-145.0" y="-107.0" />
+      <point x="772.0" y="411.0" />
+      <point x="741.0" y="411.0" />
+      <point x="103.0" y="72.5" />
     </edge>
     <edge source="io.netty.channel.ChannelOutboundHandlerAdapter" target="io.netty.channel.ChannelHandler">
-      <point x="-62.0" y="-15.0" />
-      <point x="62.0" y="55.0" />
-      <point x="181.0486111111111" y="55.0" />
-      <point x="-46.666666666666686" y="15.0" />
-    </edge>
-    <edge source="io.netty.channel.ChannelHandlerAdapter" target="io.netty.channel.ChannelHandlerAdapter">
-      <point x="-62.66666666666667" y="15.0" />
-      <point x="165.04861111111111" y="130.0" />
-      <point x="113.71527777777777" y="130.0" />
-      <point x="113.71527777777777" y="95.0" />
-      <point x="-94.0" y="-0.0" />
+      <point x="145.0" y="-107.0" />
+      <point x="1062.0" y="411.0" />
+      <point x="971.8333333333334" y="411.0" />
+      <point x="971.8333333333334" y="124.0" />
+      <point x="775.3333333333334" y="124.0" />
+      <point x="137.33333333333337" y="49.5" />
     </edge>
     <edge source="io.netty.channel.ChannelInboundHandler" target="io.netty.channel.ChannelHandler">
-      <point x="0.0" y="-15.0" />
-      <point x="461.84027777777777" y="55.0" />
-      <point x="274.3819444444444" y="55.0" />
-      <point x="46.66666666666663" y="15.0" />
+      <point x="0.0" y="-118.5" />
+      <point x="206.0" y="124.0" />
+      <point x="500.66666666666663" y="124.0" />
+      <point x="-137.33333333333337" y="49.5" />
     </edge>
     <edge source="io.netty.channel.ChannelInboundHandlerAdapter" target="io.netty.channel.ChannelHandlerAdapter">
-      <point x="-59.25" y="-15.0" />
-      <point x="327.25" y="150.0" />
-      <point x="290.3819444444444" y="150.0" />
-      <point x="62.66666666666663" y="15.0" />
+      <point x="103.0" y="-118.5" />
+      <point x="471.84722222222223" y="411.0" />
+      <point x="535.0" y="411.0" />
+      <point x="-103.0" y="72.5" />
     </edge>
     <edge source="io.netty.channel.ChannelInboundHandlerAdapter" target="io.netty.channel.ChannelInboundHandler">
-      <point x="59.25" y="-15.0" />
-      <point x="445.75" y="150.0" />
-      <point x="461.84027777777777" y="150.0" />
-      <point x="0.0" y="15.0" />
+      <point x="-103.0" y="-118.5" />
+      <point x="265.84722222222223" y="411.0" />
+      <point x="206.0" y="411.0" />
+      <point x="0.0" y="118.5" />
     </edge>
     <edge source="io.netty.channel.ChannelHandlerAdapter" target="io.netty.channel.ChannelHandler">
-      <point x="0.0" y="-15.0" />
-      <point x="0.0" y="15.0" />
+      <point x="0.0" y="-72.5" />
+      <point x="0.0" y="49.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="278.5" y="100.0" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="279.0" y="100.0" />
   <SelectedNodes />
-  <Categories />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
 </Diagram>

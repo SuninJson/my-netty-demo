@@ -53,7 +53,7 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     /**
-     * The exceptionCaught() event handler method is called with a Throwable when an exception was raised by Netty due to an I/O error or by a handler implementation due to the exception thrown while processing events.
+     * The exceptionCaught() event demo.handler method is called with a Throwable when an exception was raised by Netty due to an I/O error or by a demo.handler implementation due to the exception thrown while processing events.
      * In most cases, the caught exception should be logged and its associated channel should be closed here, although the implementation of this method can be different depending on what you want to do to deal with an exceptional situation.
      * For example, you might want to send a response message with an error code before closing the connection
      */

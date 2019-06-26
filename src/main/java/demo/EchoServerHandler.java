@@ -5,13 +5,13 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * demo.DiscardServerHandler extends ChannelInboundHandlerAdapter, which is an implementation of ChannelInboundHandler.
- * ChannelInboundHandler provides various event handler methods that you can override.
- * For now, it is just enough to extend ChannelInboundHandlerAdapter rather than to implement the handler interface by yourself.
+ * ChannelInboundHandler provides various event demo.handler methods that you can override.
+ * For now, it is just enough to extend ChannelInboundHandlerAdapter rather than to implement the demo.handler interface by yourself.
  */
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
     /**
-     * We override the channelRead() event handler method here.
+     * We override the channelRead() event demo.handler method here.
      * This method is called with the received message, whenever new data is received from a client.
      * In this example, the type of the received message is ByteBuf.
      */
@@ -33,7 +33,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     /**
-     * The exceptionCaught() event handler method is called with a Throwable when an exception was raised by Netty due to an I/O error or by a handler implementation due to the exception thrown while processing events.
+     * The exceptionCaught() event demo.handler method is called with a Throwable when an exception was raised by Netty due to an I/O error or by a demo.handler implementation due to the exception thrown while processing events.
      * In most cases, the caught exception should be logged and its associated channel should be closed here, although the implementation of this method can be different depending on what you want to do to deal with an exceptional situation.
      * For example, you might want to send a response message with an error code before closing the connection
      */

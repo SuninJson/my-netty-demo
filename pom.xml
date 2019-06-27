@@ -27,6 +27,7 @@
     </build>
     <modules>
         <module>rpc-framework</module>
+        <module>chat</module>
     </modules>
 
     <dependencies>

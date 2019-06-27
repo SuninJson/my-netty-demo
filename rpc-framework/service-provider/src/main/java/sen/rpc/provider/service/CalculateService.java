@@ -1,7 +1,7 @@
 package sen.rpc.provider.service;
 
 import sen.rpc.provider.annotation.RpcService;
-import api.ICalculateService;
+import sen.netty.provider.api.ICalculateService;
 
 /**
  * @author Huang Sen

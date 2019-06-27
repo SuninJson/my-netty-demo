@@ -7,18 +7,12 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import rpc.bean.ServerRegisterInfo;
 import rpc.config.CommonProperties;
 import rpc.protocol.RpcProtocol;
-import rpc.protocol.ServerRegisterProtocol;
-import sen.netty.consumer.handler.RpcResultHandler;
-import sen.rpc.provider.annotation.RpcService;
-import sen.rpc.provider.config.ProjectProperties;
-import sen.rpc.provider.handler.LocalInvokeHandler;
-import sen.rpc.provider.handler.ServerRegisterHandler;
+import sen.netty.consumer.factory.RpcProxyProvider;
+import sen.netty.consumer.handler.RpcProxyHandler;
+import sen.netty.provider.api.IHelloService;
 import util.NettyUtils;
-
-import java.util.ArrayList;
 
 /**
  * @author Huang Sen
@@ -27,10 +21,19 @@ import java.util.ArrayList;
  */
 public class ConsumerServer {
 
+    private static final ConsumerServer INSTANCE = new ConsumerServer();
+
+    private ConsumerServer() {
+    }
+
+    public static ConsumerServer getInstance() {
+        return INSTANCE;
+    }
+
     /**
      * RPC
      */
-    private void doRpc() {
+    public void doRpc(RpcProtocol rpcProtocol) {
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(workerGroup)
@@ -39,7 +42,7 @@ public class ConsumerServer {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         NettyUtils.initPipelineForRpc(ch)
-                                .addLast("registerHandler", new RpcResultHandler());
+                                .addLast("resultHandler", new RpcProxyHandler().getResultHandlerInstance());
                     }
                 })
                 .option(ChannelOption.TCP_NODELAY, true);
@@ -47,7 +50,6 @@ public class ConsumerServer {
         try {
             ChannelFuture future = bootstrap.connect(CommonProperties.REGISTRY_IP, CommonProperties.REGISTRY_PORT).sync();
 
-            RpcProtocol rpcProtocol = wrapRpcInfoAsProtocol();
             future.channel().writeAndFlush(rpcProtocol).sync();
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
@@ -55,21 +57,9 @@ public class ConsumerServer {
         }
     }
 
-    /**
-     * 将注册信息包装为传输协议
-     */
-    private RpcProtocol wrapRpcInfoAsProtocol() {
-        RpcProtocol rpcProtocol = new RpcProtocol();
-        rpcProtocol.setServerName("");
-        rpcProtocol.setServiceName("");
-        rpcProtocol.setMethodName("");
-        rpcProtocol.setParamTypes(new String[] ());
-        rpcProtocol.setParamValue(new Object[] ());
-
-        return rpcProtocol;
-    }
-
     public static void main(String[] args) {
-        new ProviderServer().start();
+        IHelloService helloService = RpcProxyProvider.newProxyInstance(IHelloService.class);
+        System.out.println(helloService.hello("Consumer"));
+
     }
 }

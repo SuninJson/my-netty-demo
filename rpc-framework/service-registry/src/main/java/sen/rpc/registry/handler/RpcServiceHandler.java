@@ -11,6 +11,7 @@ public class RpcServiceHandler extends ChannelInboundHandlerAdapter {
             //处理远程调用请求
             doRpc(ctx, (RpcProtocol) msg);
         }
+        ctx.fireChannelRead(msg);
     }
 
     @Override

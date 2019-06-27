@@ -16,6 +16,6 @@ public class RpcProtocol implements Serializable {
     private String serverName;
     private String serviceName;
     private String methodName;
-    private String[] paramTypes;
+    private Class<?>[] paramTypes;
     private Object[] paramValue;
 }

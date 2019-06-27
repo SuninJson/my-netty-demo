@@ -17,6 +17,7 @@ public class ServerRegisterHandler extends ChannelInboundHandlerAdapter {
             //注册服务
             doRegisterService(ctx, (ServerRegisterProtocol) msg);
         }
+        ctx.fireChannelRead(msg);
     }
 
     /**
@@ -28,7 +29,6 @@ public class ServerRegisterHandler extends ChannelInboundHandlerAdapter {
             RegistryServer.addService(netAddress, serverRegisterInfo);
         }
         ctx.writeAndFlush("服务注册中心回复：Registration Complete");
-        ctx.fireChannelRead(msg);
     }
 
     @Override

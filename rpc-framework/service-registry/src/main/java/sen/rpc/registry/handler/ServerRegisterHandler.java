@@ -2,12 +2,8 @@ package sen.rpc.registry.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import rpc.bean.ServerRegisterInfo;
 import rpc.protocol.ServerRegisterProtocol;
 import sen.rpc.registry.RegistryServer;
-import util.NettyUtils;
-
-import java.net.InetSocketAddress;
 
 public class ServerRegisterHandler extends ChannelInboundHandlerAdapter {
 
@@ -24,10 +20,7 @@ public class ServerRegisterHandler extends ChannelInboundHandlerAdapter {
      * 注册服务
      */
     private void doRegisterService(ChannelHandlerContext ctx, ServerRegisterProtocol msg) {
-        InetSocketAddress netAddress = NettyUtils.getClientNetAddress(ctx);
-        for (ServerRegisterInfo serverRegisterInfo : msg.getServerRegisterInfos()) {
-            RegistryServer.addService(netAddress, serverRegisterInfo);
-        }
+        RegistryServer.addService(msg);
         ctx.writeAndFlush("服务注册中心回复：Registration Complete");
     }
 

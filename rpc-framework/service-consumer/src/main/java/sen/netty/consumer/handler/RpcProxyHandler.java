@@ -1,9 +1,8 @@
 package sen.netty.consumer.handler;
 
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import rpc.config.CommonProperties;
 import rpc.protocol.RpcProtocol;
-import sen.netty.consumer.ConsumerServer;
+import rpc.utils.RpcUtils;
 import sen.netty.provider.config.ProviderApiProperties;
 
 import java.lang.reflect.InvocationHandler;
@@ -16,36 +15,34 @@ import java.lang.reflect.Method;
  */
 public class RpcProxyHandler implements InvocationHandler {
 
-    private Object response;
+    private Class<?> targetClass;
+
+    public <T> RpcProxyHandler(Class<T> apiClass) {
+        targetClass = apiClass;
+    }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
+        Object response;
+        if (Object.class.equals(method.getDeclaringClass())) {
+            response = method.invoke(proxy, args);
+        } else {
+            response = doRpc(method, args);
+        }
+        return response;
+    }
+
+    private Object doRpc(Method method, Object[] args) {
         RpcProtocol rpcProtocol = new RpcProtocol();
         rpcProtocol.setServerName(ProviderApiProperties.SERVER_NAME);
-        rpcProtocol.setServiceName(this.getClass().getSimpleName());
+        rpcProtocol.setServiceName(targetClass.getSimpleName());
         rpcProtocol.setMethodName(method.getName());
         rpcProtocol.setParamTypes(method.getParameterTypes());
         rpcProtocol.setParamValue(args);
 
-        ConsumerServer.getInstance().doRpc(rpcProtocol);
-        return response;
+        return RpcUtils.rpcServerService(CommonProperties.REGISTRY_IP, CommonProperties.REGISTRY_PORT, rpcProtocol);
     }
 
-    public RpcResultHandler getResultHandlerInstance() {
-        return new RpcResultHandler();
-    }
 
-    private class RpcResultHandler extends ChannelInboundHandlerAdapter {
-
-        @Override
-        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-            response = msg;
-        }
-
-        @Override
-        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-            super.exceptionCaught(ctx, cause);
-        }
-    }
 }

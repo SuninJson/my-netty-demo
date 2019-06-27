@@ -10,6 +10,7 @@ import sen.rpc.provider.service.BaseService;
 public class ProjectProperties {
 
     public static final String SERVICE_PACKAGE = BaseService.class.getPackage().getName();
-    public static final int PORT = 8090;
+    public static final int SERVER_PORT = 8090;
 
+    public static final String SERVER_HOST = "127.0.0.1";
 }

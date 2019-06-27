@@ -10,7 +10,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import rpc.bean.ServerRegisterInfo;
 import rpc.config.CommonProperties;
 import rpc.protocol.ServerRegisterProtocol;
 import sen.rpc.provider.annotation.RpcService;
@@ -30,10 +29,27 @@ import java.util.List;
  */
 public class ProviderServer {
 
-    private static final List<Object> services = new ArrayList<>();
+    public static final List<Object> services = new ArrayList<>();
 
     public ProviderServer() {
         initService();
+    }
+
+    public static Object getServiceObj(String serviceName) {
+        return services.stream()
+                .filter(s -> isAssignableFrom(s, serviceName))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException(String.format("未找到<%s>的实现", serviceName)));
+    }
+
+    private static boolean isAssignableFrom(Object s, String serviceName) {
+        Class<?> serviceClass = s.getClass();
+        for (Class<?> interfaceClass : serviceClass.getInterfaces()) {
+            if (serviceName.equals(interfaceClass.getSimpleName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -68,7 +84,7 @@ public class ProviderServer {
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
 
-            ChannelFuture future = bootstrap.bind(ProjectProperties.PORT).sync();
+            ChannelFuture future = bootstrap.bind(ProjectProperties.SERVER_PORT).sync();
             System.out.println("Provider Server have already started");
 
             //将该服务注册到服务注册中心
@@ -116,11 +132,10 @@ public class ProviderServer {
      */
     private ServerRegisterProtocol wrapRegisterInfoAsProtocol() {
         ServerRegisterProtocol registerProtocol = new ServerRegisterProtocol();
-        ArrayList<ServerRegisterInfo> registerInfos = new ArrayList<>();
-        ServerRegisterInfo registerInfo = new ServerRegisterInfo();
-        registerInfo.setServerName(this.getClass().getSimpleName());
-        registerInfos.add(registerInfo);
-        registerProtocol.setServerRegisterInfos(registerInfos);
+        registerProtocol.setName(this.getClass().getSimpleName());
+        registerProtocol.setHost(ProjectProperties.SERVER_HOST);
+        registerProtocol.setPort(ProjectProperties.SERVER_PORT);
+
         return registerProtocol;
     }
 

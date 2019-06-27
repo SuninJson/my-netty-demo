@@ -9,14 +9,15 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import rpc.bean.ServerRegisterInfo;
 import rpc.config.CommonProperties;
+import rpc.protocol.ServerRegisterProtocol;
 import sen.rpc.registry.handler.RpcServiceHandler;
 import sen.rpc.registry.handler.ServerRegisterHandler;
 import util.NettyUtils;
 
-import java.net.InetSocketAddress;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 服务注册中心
@@ -34,7 +35,7 @@ public class RegistryServer {
      * Key：Server名称
      * Value：Server IP
      */
-    private static ConcurrentHashMap<String, InetSocketAddress> serverMapping = new ConcurrentHashMap<>();
+    private static List<ServerRegisterProtocol> serverMappings = Collections.synchronizedList(new ArrayList<>());
 
     /**
      * 开启服务注册中心
@@ -71,10 +72,25 @@ public class RegistryServer {
     /**
      * 添加服务至 serverMapping
      */
-    public static void addService(InetSocketAddress netAddress, ServerRegisterInfo serverRegisterInfo) {
-        String serverName = serverRegisterInfo.getServerName();
-        serverMapping.put(serverName, netAddress);
-        System.out.println("已注册服务：" + serverName);
+    public static void addService(ServerRegisterProtocol protocol) {
+        ServerRegisterProtocol serverInfo = getServerInfo(protocol.getName());
+        serverMappings.remove(serverInfo);
+        serverMappings.add(protocol);
+        System.out.println("已注册服务：" + protocol.getName());
+    }
+
+    private static ServerRegisterProtocol getServerInfo(String serverName) {
+        return serverMappings.stream().filter(s -> serverName.equals(s.getName())).findFirst().orElse(null);
+    }
+
+    public static int getServerPort(String serverName) {
+        ServerRegisterProtocol serverInfo = getServerInfo(serverName);
+        return serverInfo == null ? 0 : serverInfo.getPort();
+    }
+
+    public static String getServerHost(String serverName) {
+        ServerRegisterProtocol serverInfo = getServerInfo(serverName);
+        return serverInfo == null ? "" : serverInfo.getHost();
     }
 
     public static void main(String[] args) {

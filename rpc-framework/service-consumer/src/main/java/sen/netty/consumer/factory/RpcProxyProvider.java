@@ -10,7 +10,9 @@ import java.lang.reflect.Proxy;
  * @description
  */
 public class RpcProxyProvider {
-    public static <T> T newProxyInstance(Class<T> apiClass) {
-        return (T) Proxy.newProxyInstance(apiClass.getClassLoader(), new Class[]{apiClass}, new RpcProxyHandler());
+    public static <T> T create(Class<T> apiClass) {
+        Class<?>[] classes = apiClass.isInterface() ?
+                new Class<?>[]{apiClass} : apiClass.getInterfaces();
+        return (T) Proxy.newProxyInstance(apiClass.getClassLoader(), classes, new RpcProxyHandler(apiClass));
     }
 }

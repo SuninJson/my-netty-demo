@@ -9,7 +9,7 @@ import sen.rpc.provider.annotation.RpcService;
  * @description
  */
 @RpcService
-public class HelloServiceImpl implements IHelloService {
+public class HelloService implements IHelloService {
     public String hello(String name) {
         return String.format("Hello %s,I'm provider", name);
     }

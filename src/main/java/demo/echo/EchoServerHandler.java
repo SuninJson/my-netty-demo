@@ -1,10 +1,10 @@
-package demo;
+package demo.echo;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
- * demo.DiscardServerHandler extends ChannelInboundHandlerAdapter, which is an implementation of ChannelInboundHandler.
+ * demo.discard.DiscardServerHandler extends ChannelInboundHandlerAdapter, which is an implementation of ChannelInboundHandler.
  * ChannelInboundHandler provides various event demo.handler methods that you can override.
  * For now, it is just enough to extend ChannelInboundHandlerAdapter rather than to implement the demo.handler interface by yourself.
  */

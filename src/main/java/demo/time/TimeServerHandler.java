@@ -1,4 +1,4 @@
-package demo;
+package demo.time;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
@@ -21,7 +21,11 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(final ChannelHandlerContext ctx) throws Exception {
-        //分配缓冲区
+        /*
+            To send a new message, we need to allocate a new buffer which will contain the message.
+            We are going to write a 32-bit integer, and therefore we need a ByteBuf whose capacity is at least 4 bytes.
+            Get the current ByteBufAllocator via ChannelHandlerContext.alloc() and allocate a new buffer.
+         */
         final ByteBuf byteBuf = ctx.alloc().buffer(4);
 
         //2208988800：是1970-01-01 00:00.00距离1900-01-01  00:00.00的秒数
@@ -42,14 +46,19 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
          */
         byteBuf.writeInt((int) (System.currentTimeMillis() + 2208988800L));
 
+        /*
+            Another point to note is that the ChannelHandlerContext.write() (and writeAndFlush()) method returns a ChannelFuture.
+            A ChannelFuture represents an I/O operation which has not yet occurred.
+            It means, any requested operation might not have been performed yet because all operations are asynchronous in Netty.
+         */
         final ChannelFuture channelFuture = ctx.writeAndFlush(byteBuf);
 
-        channelFuture.addListener(new ChannelFutureListener() {
-            public void operationComplete(ChannelFuture future) throws Exception {
-                assert channelFuture == future;
-                ctx.close();
-            }
-        });
+        /*
+            How do we get notified when a write request is finished then?
+            This is as simple as adding a ChannelFutureListener to the returned ChannelFuture.
+            Here, we created a new anonymous ChannelFutureListener which closes the Channel when the operation is done.
+         */
+        channelFuture.addListener(ChannelFutureListener.CLOSE);
     }
 
     /**
